@@ -1,0 +1,43 @@
+{
+  "name": "calendar-comparer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "cookie-session": "^1.3.3",
+    "cross-env": "^6.0.3",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "express-promise-router": "^3.0.3",
+    "join-js": "^1.0.2",
+    "luxon": "^1.19.3",
+    "multer": "^1.4.2",
+    "pg": "^7.12.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-scripts": "3.2.0"
+  },
+  "scripts": {
+    "start": "npm run build && npm run backend",
+    "backend": "cross-env DEBUG=cal:* node backend/bin/www",
+    "frontend": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
