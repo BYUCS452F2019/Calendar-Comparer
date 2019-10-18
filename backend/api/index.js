@@ -1,8 +1,17 @@
 const router = require('express-promise-router')();
 const debug = require('debug')('cal:api:index');
+const services = require('./services')
 
 router.get('/', async (req, res, next)=>{
   res.json({api: true})
+})
+
+router.post('/create-account', async (req, res, next) => {
+  services.createAccount(req, res)
+})
+
+router.post('/login', async (req, res, next) => {
+  services.login(req, res)
 })
 
 // API 404 handler
