@@ -22,6 +22,10 @@ user.get = async (userId) => {
     }
 }
 
+user.insert_calendars = async (calendarIds, userid) => {
+    
+}
+
 user.create = async (email, googleIDToken, googleRefreshToken, googleAccessToken) => {
     const query = {
         text: 'insert into "user" (user_email, user_google_id_token, user_google_refresh_token, user_google_access_token) values ($1,$2,$3,$4)',

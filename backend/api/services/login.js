@@ -1,4 +1,5 @@
 const user = require('../../db/models/user')
+const getGoogleCalendars = require('../google-calendar-integration/get-google-calendars')
 
 module.exports = async function(req, res) {
     res.send('testing - Success!')
@@ -9,9 +10,9 @@ module.exports = async function(req, res) {
 
     // get user google info from db
     userGoogleInfo = await user.get(userId)
-    console.log(userGoogleInfo)
 
     // call google calendar api to populate the personal calendar and event tables
+    getGoogleCalendars(userGoogleInfo)
 
     // put user's calendars into db
 }
