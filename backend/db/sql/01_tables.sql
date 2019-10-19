@@ -1,5 +1,3 @@
-
-
 create extension if not exists "uuid-ossp";
 
 create table group_calendar (
@@ -9,6 +7,7 @@ create table group_calendar (
 
 create table "user" (
   user_id uuid primary key default uuid_generate_v4(),
+  calendar_user_name varchar,
   user_email varchar not null,
   user_google_refresh_token varchar,
   user_google_access_token varchar,
@@ -24,7 +23,8 @@ create table calendar_membership (
 create table personal_calendar (
   personal_calendar_id uuid primary key default uuid_generate_v4(),
   personal_calendar_membership_id uuid references calendar_membership(calendar_membership_id),
-  personal_calendar_google_calendar_id varchar
+  personal_calendar_google_calendar_id varchar,
+  owner_id uuid references "user"(user_id)
 );
 
 create table "event" (
@@ -41,6 +41,13 @@ create table "session" (
   session_start_time timestamptz not null default now(),
   session_last_active timestamptz not null default now(),
   session_expiry_length interval not null
+);
+
+create table "group_connection"(
+	group_connection_id uuid primary key default uuid_generate_v4(),
+	personal_calendar_id uuid references personal_calendar(personal_calendar_id),
+	group_calendar_id uuid references group_calendar(group_calendar_id)
+	
 );
 
 insert into "user" (user_email, user_google_refresh_token, user_google_access_token, user_google_token_expiry_date)
