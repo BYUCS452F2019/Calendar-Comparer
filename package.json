@@ -10,6 +10,7 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "express-promise-router": "^3.0.3",
+    "fs": "0.0.1-security",
     "googleapis": "^44.0.0",
     "join-js": "^1.0.2",
     "luxon": "^1.19.3",

@@ -10,6 +10,12 @@ router.post('/create-account', async (req, res, next) => {
   services.createAccount(req, res)
 })
 
+//eventually req.body needs userID
+router.post('/create-group', async (req, res, next) => {
+    console.log("In create group")
+    services.createGroup(req, res)
+})
+
 router.post('/login', async (req, res, next) => {
   services.login(req, res)
 })
