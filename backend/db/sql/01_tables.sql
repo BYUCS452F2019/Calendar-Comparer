@@ -22,7 +22,6 @@ create table calendar_membership (
 
 create table personal_calendar (
   personal_calendar_id uuid primary key default uuid_generate_v4(),
-  personal_calendar_membership_id uuid references calendar_membership(calendar_membership_id),
   personal_calendar_google_calendar_id varchar,
   owner_id uuid references "user"(user_id)
 );
