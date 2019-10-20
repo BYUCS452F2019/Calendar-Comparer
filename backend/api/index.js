@@ -6,6 +6,11 @@ router.get('/', async (req, res, next)=>{
   res.json({api: true})
 })
 
+router.get('/getGroupCalendars', async (req, res, next) => {
+    console.log("In getGroupCalendars");
+    services.getGroupCalendars(req, res);
+})
+
 router.post('/create-account', async (req, res, next) => {
   services.createAccount(req, res)
 })
@@ -14,6 +19,11 @@ router.post('/create-account', async (req, res, next) => {
 router.post('/create-group', async (req, res, next) => {
     console.log("In create group")
     services.createGroup(req, res)
+})
+
+router.post('/addCalendarToGroup', async (req, res, next) => {
+    console.log("In addCalendarToGroup");
+    services.addCalendarToGroup(req, res);
 })
 
 router.post('/login', async (req, res, next) => {

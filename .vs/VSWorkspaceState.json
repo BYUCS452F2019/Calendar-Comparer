@@ -3,11 +3,11 @@
     "",
     "\\backend",
     "\\backend\\api",
+    "\\backend\\api\\google-calendar-integration",
+    "\\backend\\api\\services",
     "\\backend\\db",
     "\\backend\\db\\models",
-    "\\backend\\db\\sql",
-    "\\backend\\middleware"
+    "\\backend\\db\\sql"
   ],
-  "SelectedNode": "\\backend\\app.js",
   "PreviewInSolutionExplorer": false
 }

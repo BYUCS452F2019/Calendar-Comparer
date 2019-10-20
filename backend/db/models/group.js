@@ -36,4 +36,41 @@ group.create = async (userID, groupName) => {
     return true;
 }
 
+group.addCalendar = async (groupID, calendarID) => {
+    console.log("adding calendar: " + calendarID + " into group: " + groupID);
+
+    const query1 = {
+        text: 'insert into group_connection (personal_calendar_id, group_calendar_id) values ($1,$2)',
+        values: [
+            calendarID,
+            groupID
+        ]
+    }
+
+    debug(query1)
+
+    const result = await pg.query(query1)
+
+    return true;
+}
+
+group.getGroupCalendars = async (userID) => {
+    console.log("getting user: " + userID + " group calendars");
+
+    const query1 = {
+        text: 'select * from group_calendar gc join calendar_membership cm on cm.calendar_membership_group_calendar_id = gc.group_calendar_id where cm.calendar_membership_user_id = $1',
+        values: [
+            userID
+        ]
+    }
+
+    debug(query1)
+
+    const result = await pg.query(query1)
+ 
+    return result;
+}
+
+
+
 module.exports = group;
