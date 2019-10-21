@@ -20,10 +20,10 @@ function authorize(userGoogleInfo, credentials, callback) {
   
     tokenJsonStr = createTokenJsonStr(userGoogleInfo);
     oAuth2Client.setCredentials(JSON.parse(tokenJsonStr));
-    callback(oAuth2Client);
+    callback(oAuth2Client, userGoogleInfo.userId);
 }
 
-function listCalendars(auth) {
+function listCalendars(auth, userId) {
     const calendar = google.calendar({version: 'v3', auth});
     calendar.calendarList.list({
         maxResults: 10
@@ -32,7 +32,7 @@ function listCalendars(auth) {
         const calendars = res.data.items;
         if (calendars.length) {
             const calendarIds = calendars.map(calendar => calendar.id);
-            
+            user.insert_calendars(calendarIds, userId)
         } else {
             console.log('No calendars found.');
         }
@@ -45,7 +45,6 @@ function getGoogleCalendars(userGoogleInfo) {
         if (err) return console.log('Error loading client secret file:', err);
         // Authorize a client with credentials, then call the Google Calendar API.
         authorize(userGoogleInfo, JSON.parse(content), listCalendars);
-        console.log(calendarIds)
     });
 }
 
