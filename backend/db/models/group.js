@@ -33,7 +33,7 @@ group.create = async (userID, groupName) => {
 
     const result2 = await pg.query(query2)
 
-    return true;
+    return groupID;
 }
 
 group.addCalendar = async (groupID, calendarID) => {
