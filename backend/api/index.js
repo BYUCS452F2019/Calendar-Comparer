@@ -30,6 +30,10 @@ router.post('/login', async (req, res, next) => {
   services.login(req, res)
 })
 
+router.post('/editGroupName', async (req, res, next) => {
+    services.editGroupName(req, res);
+})
+
 // API 404 handler
 router.use((req,res,next)=>{
   let error = new Error("Not found");

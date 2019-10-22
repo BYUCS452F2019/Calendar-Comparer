@@ -71,6 +71,24 @@ group.getGroupCalendars = async (userID) => {
     return result;
 }
 
+group.editName = async (groupID, NewGroupName) => {
+    console.log("editing group: " + groupID + " name to: " + NewGroupName);
+
+    const query1 = {
+        text: 'update group_calendar gc set group_calendar_name = $1 where group_calendar_id = $2',
+        values: [
+            NewGroupName,
+            groupID
+        ]
+    }
+
+    debug(query1)
+
+    const result = await pg.query(query1)
+
+    return result;
+}
+
 
 
 module.exports = group;
