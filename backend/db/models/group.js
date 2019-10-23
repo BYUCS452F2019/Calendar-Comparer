@@ -89,6 +89,32 @@ group.editName = async (groupID, NewGroupName) => {
     return result;
 }
 
+group.getAvailabilityCalendars = async (groupID) => {
+    console.log("getting Availability Calender for group: " + groupID);
+    if (groupID == "test") {
+        console.log("getting test Availability Calendar")
+        return group.getTestAvailabilityCalendar();
+    }
+    
 
+}
+
+group.getTestAvailabilityCalendar = function () {
+
+    let total = 29;
+
+    let week = new Array();
+    for (let i = 0; i < 7; i++) {
+        let day = new Array();
+        for (let k = 0; k < 24; k++) {
+            
+            let percent = ((i + k) / total).toFixed(2);
+            day[k] = percent;
+        }
+        week[i] = day;
+    }
+
+    return week;
+}
 
 module.exports = group;

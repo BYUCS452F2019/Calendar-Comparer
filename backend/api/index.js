@@ -11,6 +11,11 @@ router.get('/getGroupCalendars', async (req, res, next) => {
     services.getGroupCalendars(req, res);
 })
 
+router.get('/getGroupAvailabilityCalendar', async (req, res, next) => {
+    console.log("In getGroupAvailabilityCalendar");
+    services.getGroupAvailabilityCalendar(req, res);
+})
+
 router.post('/create-account', async (req, res, next) => {
   services.createAccount(req, res)
 })
