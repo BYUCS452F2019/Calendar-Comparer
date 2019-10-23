@@ -95,7 +95,8 @@ group.getAvailabilityCalendars = async (groupID) => {
         console.log("getting test Availability Calendar")
         return group.getTestAvailabilityCalendar();
     }
-    
+
+
 
 }
 
