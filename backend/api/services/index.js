@@ -1,4 +1,6 @@
 module.exports = {
+    getGroupAvailabilityCalendar: require('./getGroupAvailabilityCalendar'),
+    editGroupName: require('./editGroupName'),
     getGroupCalendars: require("./getGroupCalendars"),
     addCalendarToGroup: require('./addCalendarToGroup'),
     createAccount: require('./create-account'),

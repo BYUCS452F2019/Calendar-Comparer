@@ -33,7 +33,7 @@ group.create = async (userID, groupName) => {
 
     const result2 = await pg.query(query2)
 
-    return true;
+    return groupID;
 }
 
 group.addCalendar = async (groupID, calendarID) => {
@@ -71,6 +71,51 @@ group.getGroupCalendars = async (userID) => {
     return result;
 }
 
+group.editName = async (groupID, NewGroupName) => {
+    console.log("editing group: " + groupID + " name to: " + NewGroupName);
 
+    const query1 = {
+        text: 'update group_calendar gc set group_calendar_name = $1 where group_calendar_id = $2',
+        values: [
+            NewGroupName,
+            groupID
+        ]
+    }
+
+    debug(query1)
+
+    const result = await pg.query(query1)
+
+    return result;
+}
+
+group.getAvailabilityCalendars = async (groupID) => {
+    console.log("getting Availability Calender for group: " + groupID);
+    if (groupID == "test") {
+        console.log("getting test Availability Calendar")
+        return group.getTestAvailabilityCalendar();
+    }
+
+
+
+}
+
+group.getTestAvailabilityCalendar = function () {
+
+    let total = 29;
+
+    let week = new Array();
+    for (let i = 0; i < 7; i++) {
+        let day = new Array();
+        for (let k = 0; k < 24; k++) {
+            
+            let percent = ((i + k) / total).toFixed(2);
+            day[k] = percent;
+        }
+        week[i] = day;
+    }
+
+    return week;
+}
 
 module.exports = group;

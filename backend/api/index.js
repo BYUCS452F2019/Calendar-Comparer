@@ -11,6 +11,11 @@ router.get('/getGroupCalendars', async (req, res, next) => {
     services.getGroupCalendars(req, res);
 })
 
+router.get('/getGroupAvailabilityCalendar', async (req, res, next) => {
+    console.log("In getGroupAvailabilityCalendar");
+    services.getGroupAvailabilityCalendar(req, res);
+})
+
 router.post('/create-account', async (req, res, next) => {
   services.createAccount(req, res)
 })
@@ -28,6 +33,10 @@ router.post('/addCalendarToGroup', async (req, res, next) => {
 
 router.post('/login', async (req, res, next) => {
   services.login(req, res)
+})
+
+router.post('/editGroupName', async (req, res, next) => {
+    services.editGroupName(req, res);
 })
 
 // API 404 handler
