@@ -1,7 +1,7 @@
 const fs = require('fs');
 const {google} = require('googleapis');
 
-const user = require('../../db/models/user')
+const calendarDB = require('../../db/models/calendar')
 
 function createTokenJsonStr(userGoogleInfo) {
     return `{"access_token":"${userGoogleInfo.accessToken}","refresh_token":"${userGoogleInfo.refreshToken}","scope":"https://www.googleapis.com/auth/calendar.readonly","token_type":"Bearer","expiry_date":${userGoogleInfo.tokenExpiryDate}}`
@@ -32,14 +32,14 @@ function listCalendars(auth, userId) {
         const calendars = res.data.items;
         if (calendars.length) {
             const calendarIds = calendars.map(calendar => calendar.id);
-            user.insert_calendars(calendarIds, userId)
+            calendarDB.insert_calendars(calendarIds, userId)
         } else {
             console.log('No calendars found.');
         }
     })
 }
 
-function getGoogleCalendars(userGoogleInfo) {
+function updateGoogleCalendars(userGoogleInfo) {
     // Load client secrets from a local file.
     fs.readFile('backend/api/google-calendar-integration/credentials.json', (err, content) => {
         if (err) return console.log('Error loading client secret file:', err);
@@ -48,4 +48,4 @@ function getGoogleCalendars(userGoogleInfo) {
     });
 }
 
-module.exports = getGoogleCalendars;
+module.exports = updateGoogleCalendars;

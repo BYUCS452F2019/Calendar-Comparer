@@ -2,6 +2,7 @@ const path = require('path')
 const express = require("express");
 const config = require('./loadConfig')
 const cookieSession = require('cookie-session')
+const bodyParser = require('body-parser')
 
 var app = express();
 
@@ -36,6 +37,9 @@ app.use(cookieSession(config.sessions.cookie))
  * user to the request object at `req.user`
  */
 app.use(require('./middleware/sessions'))
+
+// Body Parser to read request bodies
+app.use(bodyParser.json());
 
 // Serve APIs
 app.use('/api', require('./api'));

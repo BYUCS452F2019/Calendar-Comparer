@@ -3,5 +3,5 @@ module.exports = {
     addCalendarToGroup: require('./addCalendarToGroup'),
     createAccount: require('./create-account'),
     createGroup: require('./createGroup'),
-    login: require('./login')
+    login: require('./login'),
 }
