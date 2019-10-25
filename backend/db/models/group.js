@@ -89,25 +89,109 @@ group.editName = async (groupID, NewGroupName) => {
     return result;
 }
 
-group.getAvailabilityCalendars = async (groupID) => {
+group.getAvailabilityCalendars = async (groupID, startDate) => {
     console.log("getting Availability Calender for group: " + groupID);
     if (groupID == "test") {
         console.log("getting test Availability Calendar")
         return group.getTestAvailabilityCalendar();
     }
 
+    //let userAmount = group.getUserAmount(groupID);
 
+    //let eventList = group.getAllGroupEventsOrderByUserID(groupID);
+
+    //let eventAmount = eventList.rowCount();
+    //let starOfWeekDate = getStartOfWeek().getDate();
+    //let week = [[], [], [], [], [], [], []];
+    ////issue for week that have two months
+    //for (let i = 0; i < eventAmount; i++) {
+        
+    //    eventList.rows[i];
+    //    let eventDate = 24;
+    //    week[eventDate - starOfWeekDate]
+    //}
+
+    
+
+    //select e.*
+    //    from Event e
+    //join personal_calendar pc on pc.personal_calendar_id = e.event_personal_calendar_id
 
 }
 
-group.getTestAvailabilityCalendar = function () {
+group.getGroupWeeksEventsOrderByUserID = async function (groupID) {
 
-    let total = 29;
+    let startOfWeek = getStartOfWeek();
+    let endOfWeek = getEndOfWeek
+
+    const query1 = {
+        text: `select owner_id, event_start, event_end
+     from Event e
+    join personal_calendar pc on pc.personal_calendar_id = e.event_personal_calendar_id
+    join group_connection gcon on gcon.personal_calendar_id = pc.personal_calendar_id
+    where group_calendar_id = '$1'
+    and event_start > '$2' 
+    and event_end < '$3'
+    order by owner_id`,
+        values: [
+            groupID,
+            startOfWeek,
+            endOfWeek
+        ]
+    }
+
+    debug(query1)
+
+    const result = await pg.query(query1)
+    return result;
+}
+
+function getStartOfWeek() {
+    var today = new Date();
+    var dayOfTheWeekNum = today.getDay();
+    var dateNum = today.getDate();
+    var startOfWeekDateNum = dateNum - dayOfTheWeekNum
+
+    var startOfWeekDate = new Date(today.getFullYear, today.getMonth, startOfWeekDateNum);
+    return startOfWeekDate;
+}
+
+function getEndOfWeek() {
+    var today = new Date();
+    var dayOfTheWeekNum = today.getDay();
+    var dateNum = today.getDate();
+    var lastDayOfWeekNum = 6;
+    var endOfWeekDateNum = (lastDayOfWeekNum - dayOfTheWeekNum) + dateNum;
+
+    var endOfWeekDate = new Date(today.getFullYear, today.getMonth, endOfWeekDateNum);
+    return endOfWeekDate;
+}
+
+group.getUserAmount = async function (groupID) {
+    const query1 = {
+        text: 'select distinct count(calendar_membership_user_id) ' +
+            'from calendar_membership ' +
+            'where calendar_membership_group_calendar_id = "$1"',
+        values: [
+            groupID
+        ]
+    }
+
+    debug(query1)
+
+    const result = await pg.query(query1)
+    let UserAmount = result.rows[0].count;
+    return UserAmount;
+}
+
+group.getTestAvailabilityCalendar = async function () {
+
+    let total = 53;
 
     let week = new Array();
     for (let i = 0; i < 7; i++) {
         let day = new Array();
-        for (let k = 0; k < 24; k++) {
+        for (let k = 0; k < 48; k++) {
             
             let percent = ((i + k) / total).toFixed(2);
             day[k] = percent;
