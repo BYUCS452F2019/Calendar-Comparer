@@ -36,7 +36,7 @@ app.use(cookieSession(config.sessions.cookie))
  * Provides: Looks up the associated DB session object and user, and attaches the
  * user to the request object at `req.user`
  */
-app.use(require('./middleware/sessions'))
+app.use('/api', require('./middleware/sessions'))
 
 // Body Parser to read request bodies
 app.use(bodyParser.json());
