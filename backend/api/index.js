@@ -7,36 +7,36 @@ router.get('/', async (req, res, next)=>{
 })
 
 router.get('/getGroupCalendars', async (req, res, next) => {
-    console.log("In getGroupCalendars");
-    services.getGroupCalendars(req, res);
+  console.log("In getGroupCalendars");
+  await services.getGroupCalendars(req, res);
 })
 
 router.get('/getGroupAvailabilityCalendar', async (req, res, next) => {
-    console.log("In getGroupAvailabilityCalendar");
-    services.getGroupAvailabilityCalendar(req, res);
+  console.log("In getGroupAvailabilityCalendar");
+  await services.getGroupAvailabilityCalendar(req, res);
 })
 
 router.post('/create-account', async (req, res, next) => {
-  services.createAccount(req, res)
+  await services.createAccount(req, res)
 })
 
 //eventually req.body needs userID
 router.post('/create-group', async (req, res, next) => {
-    console.log("In create group")
-    services.createGroup(req, res)
+  console.log("In create group")
+  await services.createGroup(req, res)
 })
 
 router.post('/addCalendarToGroup', async (req, res, next) => {
-    console.log("In addCalendarToGroup");
-    services.addCalendarToGroup(req, res);
+  console.log("In addCalendarToGroup");
+  await services.addCalendarToGroup(req, res);
 })
 
 router.post('/login', async (req, res, next) => {
-  services.login(req, res)
+  await services.login(req, res)
 })
 
 router.post('/editGroupName', async (req, res, next) => {
-    services.editGroupName(req, res);
+  await services.editGroupName(req, res);
 })
 
 // API 404 handler
