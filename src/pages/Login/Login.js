@@ -1,9 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './Login.css';
 
 export class Login extends React.Component {
-  
+
   constructor(props) {
     super(props);
 	this.state = {
@@ -13,16 +12,16 @@ export class Login extends React.Component {
 	this.usernameChange = this.usernameChange.bind(this);
 	this.passwordChange = this.passwordChange.bind(this);
   }
-  
+
   usernameChange(event) {
 	console.log(this);
     this.setState({username: event.target.value});
   }
-  
+
   passwordChange(event) {
     this.setState({word: event.target.value});
   }
-  
+
   login() {
 	//make database call, see if username and password are there, and log in based on that
 	/*if (valid) {
@@ -32,7 +31,7 @@ export class Login extends React.Component {
 	}*/
 	console.log("Reached login");
   }
-    
+
   render() {
 	return (
 	  <div className="login">

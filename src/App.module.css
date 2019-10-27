@@ -1,0 +1,37 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.Appbar {
+  height: 60px;
+  border-bottom: var(--layout-border);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Appbar h1 {
+  display: inline-block;
+  width: auto;
+}
+
+.SidebarContainer {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.Sidebar {
+  width: 200px;
+  border-right: var(--layout-border);
+}
+
+.ContentArea {
+  flex: 1;
+  overflow-y: auto;
+}

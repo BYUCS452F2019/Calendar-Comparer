@@ -1,43 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Login from './Login.js';
-import CalendarView from './Calendar.js';
+import styles from './App.module.css';
+import Login from './pages/Login/Login.js';
+import CalendarView from './pages/Calendar/Calendar.js';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
   Link
 } from "react-router-dom";
 
-function App() {
-  return (
-	<Router>
-      <div>
+const App = ()=>(
+  <BrowserRouter>
+    <div className={styles.App}>
+      <div className={styles.Appbar}>
+        <h1>Calendar Comparer</h1>
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Login</Link>
-            </li>
-            <li>
-              <Link to="/calendar">Calendar</Link>
-            </li>
-          </ul>
+          <Link to="/login">Login</Link>
+          <Link to="/calendar">Calendar</Link>
         </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+      </div>
+      <div className={styles.SidebarContainer}>
         <Switch>
-          <Route path="/calendar">
-            <CalendarView />
+          <Route path="/login">
+            <Login />
           </Route>
           <Route path="/">
-            <Login />
+            <div className={styles.Sidebar}></div>
+            <div className={styles.ContentArea}>
+              <Route exact path="/calendar">
+                <CalendarView />
+              </Route>
+            </div>
           </Route>
         </Switch>
       </div>
-    </Router>
-  );
-}
+    </div>
+  </BrowserRouter>
+)
 
 export default App;
