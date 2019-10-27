@@ -5,4 +5,8 @@ html, body {
 
 :root {
   --layout-border: solid 1px #dedede;
+  --color-primary: #99e394;
+  --color-primary-strong: #344933;
+  --color-error: rgb(255, 166, 166);
+  --color-error-strong: rgb(153, 0, 0);
 }

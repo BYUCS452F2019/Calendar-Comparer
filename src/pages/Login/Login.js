@@ -1,46 +1,67 @@
-import React from 'react';
-import './Login.css';
+import React, {useState, useRef} from 'react';
+import {useHistory} from 'react-router-dom'
+import styles from './Login.module.css';
 
-export class Login extends React.Component {
+import TextInput from '../../components/TextInput/TextInput'
+import Button from '../../components/Button/Button'
 
-  constructor(props) {
-    super(props);
-	this.state = {
-	  username: null,
-	  word: null,
-	};
-	this.usernameChange = this.usernameChange.bind(this);
-	this.passwordChange = this.passwordChange.bind(this);
-  }
+// Helper function
+const makeAPICall = async (username, password)=>{
+	// Replace with api call
+	console.log(username, password)
+	await new Promise(res=>setTimeout(res, 1000))
 
-  usernameChange(event) {
-	console.log(this);
-    this.setState({username: event.target.value});
-  }
+	return null
+}
 
-  passwordChange(event) {
-    this.setState({word: event.target.value});
-  }
+const Login = ({setUser})=>{
+	const [error, setError] = useState(null)
+	const [loading, setLoading] = useState(false)
+	const usernameRef = useRef()
+	const passwordRef = useRef()
+	const history = useHistory()
 
-  login() {
-	//make database call, see if username and password are there, and log in based on that
-	/*if (valid) {
-	  change to calendar page
-	} else {
-	  display error message
-	}*/
-	console.log("Reached login");
-  }
+	const login = async ()=>{
+		// Clear any current error message
+		setError(null)
 
-  render() {
+		// Set loading
+		setLoading(true)
+
+		const username = usernameRef.current.value
+		const password = passwordRef.current.value
+
+		try {
+			const user = await makeAPICall(username, password)
+
+			// Notify parent of user
+			if(setUser && typeof setUser === 'function')
+				setUser(user)
+
+			// Navigate to calendar
+			history.push('/calendar')
+
+		// Handle errors with message, and clear loading state
+		} catch (err) {
+			setError(err.message)
+			setLoading(false)
+		}
+	}
+
 	return (
-	  <div className="login">
-		<input id="username" value={this.state.username} onChange={this.usernameChange} />
-		<input id="password" value={this.state.word} onChange={this.passwordChange} />
-		<button id="submit" onClick={this.login}>Submit</button>
-	  </div>
+		<div className={styles.Login}>
+			<h2>Login:</h2>
+			<TextInput name="username" inputRef={usernameRef} />
+			<TextInput name="password" inputRef={passwordRef} type="password" />
+			<Button loading={loading} onClick={login}>Submit</Button>
+
+			{error && (
+				<div className={styles.Error}>
+					{error}
+				</div>
+			)}
+		</div>
 	);
-  }
 }
 
 export default Login;
