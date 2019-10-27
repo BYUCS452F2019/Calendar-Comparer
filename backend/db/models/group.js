@@ -58,9 +58,10 @@ group.getGroupCalendars = async (userID) => {
     console.log("getting user: " + userID + " group calendars");
 
     const query1 = {
-        text: 'select * from group_calendar gc join calendar_membership cm on cm.calendar_membership_group_calendar_id = gc.group_calendar_id where cm.calendar_membership_user_id = $1',
+        // Modified by Cole to return all group calendars so he could test the frontend
+        text: 'select * from group_calendar gc left join calendar_membership cm on cm.calendar_membership_group_calendar_id = gc.group_calendar_id',// where cm.calendar_membership_user_id = $1',
         values: [
-            userID
+            // userID
         ]
     }
 
@@ -68,7 +69,7 @@ group.getGroupCalendars = async (userID) => {
 
     const result = await pg.query(query1)
  
-    return result;
+    return result.rows;
 }
 
 group.editName = async (groupID, NewGroupName) => {
