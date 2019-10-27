@@ -49,11 +49,21 @@
 }
 
 .Sidebar {
-  width: 200px;
+  width: 235px;
   border-right: var(--layout-border);
 }
 
 .ContentArea {
   flex: 1;
   overflow-y: auto;
+}
+
+.CalendarMenuHeader {
+  font-family: 'Montserrat' sans-serif;
+  font-size: 18px;
+  margin-left: 12px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: black;
+  font-weight: 500;
 }

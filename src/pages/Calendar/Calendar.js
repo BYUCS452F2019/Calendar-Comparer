@@ -11,6 +11,8 @@ export class CalendarView extends React.Component {
   }
 
   render() {
+		console.log(this.props.calendar)
+
 	return (
 	  <div className="calendar">
 		<WeekCalendar/>

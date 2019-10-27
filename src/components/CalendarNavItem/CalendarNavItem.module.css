@@ -1,0 +1,15 @@
+.NavItem {
+  padding: 9px 12px;
+  font-family: 'Montserrat';
+  font-weight: 200;
+  font-size: 16px;
+  letter-spacing: 2px;
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+
+.Selected {
+  background: #808080;
+  color: white;
+}
