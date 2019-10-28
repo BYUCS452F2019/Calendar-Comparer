@@ -23,7 +23,7 @@ user.get = async (userId) => {
     }
 }
 
-user.create = async (email, googleRefreshToken, googleAccessToken, googleTokenExpiryDate, userName=null) => {
+user.create = async (email, userName, googleRefreshToken, googleAccessToken, googleTokenExpiryDate) => {
     const query = {
         text: 'insert into "user" (user_email, calendar_user_name, user_google_refresh_token, user_google_access_token, user_google_token_expiry_date) values ($1,$2,$3,$4,$5)',
         values: [
@@ -37,7 +37,8 @@ user.create = async (email, googleRefreshToken, googleAccessToken, googleTokenEx
 
     // debug(query)
 
-    await pg.query(query)
+    const result = await pg.query(query)
+    return result.rowCount == 1
 }
 
 module.exports = user;
