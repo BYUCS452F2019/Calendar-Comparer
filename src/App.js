@@ -56,8 +56,12 @@ const App = ()=>{
               </div>
               <div className={styles.ContentArea}>
                 <Route path="/calendar/:calendar_id">
-                  {({match: {params: {calendar_id}}})=>(
-                    <CalendarView calendar={calendars.filter(c=>c.group_calendar_id === calendar_id)[0]}/>
+                  {({match})=>(
+                    <>
+                      {match && match.params && match.params.calendar_id && 
+                        <CalendarView calendar={calendars.filter(c=>c.group_calendar_id === match.params.calendar_id)[0]}/>
+                      }
+                    </>
                   )}
                 </Route>
               </div>
