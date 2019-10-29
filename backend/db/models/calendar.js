@@ -46,4 +46,17 @@ calendar.insert_calendars = async (calendarIds, userId) => {
     }  
 }
 
+calendar.insertCalendarMembership = async (groupID, userEmail) => {
+    const query = {
+        text: `insert into calendar_membership (calendar_membership_group_calendar_id, calendar_membership_user_id)
+        values ($1, (select user_id from "user" where user_email = $2))`,
+        values: [
+            groupID, 
+            userEmail
+        ]
+    }
+
+    await pg.query(query)
+}
+
 module.exports = calendar;

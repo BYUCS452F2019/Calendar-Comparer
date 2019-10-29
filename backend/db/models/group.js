@@ -202,4 +202,19 @@ group.getTestAvailabilityCalendar = async function () {
     return week;
 }
 
+group.insertGroupConnection = async (groupID, userEmail) => {
+    const query = {
+        text: `insert into group_connection (personal_calendar_id, group_calendar_id)
+        select personal_calendar_id, $1 as group_calendar_id
+        from personal_calendar 
+        where owner_id = (select user_id from "user" where user_email = $2)`,
+        values: [
+            groupID, 
+            userEmail
+        ]
+    }
+
+    await pg.query(query)
+}
+
 module.exports = group;
