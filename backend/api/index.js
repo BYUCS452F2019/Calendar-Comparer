@@ -39,6 +39,10 @@ router.post('/editGroupName', async (req, res, next) => {
   await services.editGroupName(req, res);
 })
 
+router.post('/add-group-member', async (req, res, next) => {
+  services.addGroupMember(req, res)
+})
+
 // API 404 handler
 router.use((req,res,next)=>{
   let error = new Error("Not found");
