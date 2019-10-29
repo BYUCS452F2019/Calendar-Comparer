@@ -84,9 +84,9 @@ group.getGroupCalendars = async (userID) => {
 
     const query1 = {
         // Modified by Cole to return all group calendars so he could test the frontend
-        text: 'select * from group_calendar gc left join calendar_membership cm on cm.calendar_membership_group_calendar_id = gc.group_calendar_id',// where cm.calendar_membership_user_id = $1',
+        text: 'select distinct * from group_calendar gc left join calendar_membership cm on cm.calendar_membership_group_calendar_id = gc.group_calendar_id where cm.calendar_membership_user_id = $1',
         values: [
-            // userID
+            userID
         ]
     }
 
