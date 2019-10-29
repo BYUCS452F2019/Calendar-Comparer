@@ -1,0 +1,69 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  font-family: 'Raleway', sans-serif;
+}
+
+.Appbar {
+  height: 60px;
+  border-bottom: var(--layout-border);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Appbar h1 {
+  display: inline-block;
+  width: auto;
+  margin: 0px;
+  font-family: 'Montserrat', sans-serif;
+  color: #999999;
+}
+
+.Appbar > a:first-child {
+  margin-left: 12px;
+}
+
+.Appbar nav a {
+  padding: 15px;
+  margin: 0 20px;
+  color: rgba(0,0,0,.4);
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.Appbar nav:last-child {
+  margin-right: 15px;
+}
+
+.SidebarContainer {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.Sidebar {
+  width: 235px;
+  border-right: var(--layout-border);
+}
+
+.ContentArea {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.CalendarMenuHeader {
+  font-family: 'Montserrat' sans-serif;
+  font-size: 18px;
+  margin-left: 12px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: black;
+  font-weight: 500;
+}

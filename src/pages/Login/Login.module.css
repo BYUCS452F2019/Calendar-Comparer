@@ -1,0 +1,15 @@
+.Login {
+  max-width: 400px;
+  width: calc(100% - 30px);
+  margin: 15px auto;
+}
+
+.Error {
+  border: solid 1px var(--color-error-strong);
+  color: var(--color-error-strong);
+  background: var(--color-error);
+  border-radius: 4px;
+  padding: 6px;
+  font-size: 12px;
+  text-align: center;
+}

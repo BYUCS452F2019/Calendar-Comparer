@@ -1,0 +1,23 @@
+#AGB100 {
+    border-radius: 6px 0px 0px 6px;
+    padding-left: 6px;
+}
+
+
+#AGB0 {
+    border-radius: 0px 6px 6px 0px;
+    padding-right: 6px;
+}
+
+#AvaibleGageBar {
+    border: solid 8px;
+    border-radius: 17px;
+    background-image: linear-gradient(to right, #21e821, yellow, darkred);
+    padding: 2px 7px;
+}
+
+    #AvaibleGageBar span {
+        padding: 3px;
+    }
+
+
