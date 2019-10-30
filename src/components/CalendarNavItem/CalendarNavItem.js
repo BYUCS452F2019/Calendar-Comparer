@@ -7,7 +7,7 @@ export default ({calendar})=>{
   const {pathname} = useLocation()
   const matches = pathname.match('^/calendar/([^/]*)')
   const currentCalendar = matches && matches[1]
-  const selected = currentCalendar === calendar.group_calendar_id
+  const selected = currentCalendar === calendar.id
 
-  return <Link to={`/calendar/${calendar.group_calendar_id}`} className={styles.NavItem + (selected?' ' + styles.Selected:'')}>{calendar.group_calendar_name}</Link>
+  return <Link to={`/calendar/${calendar.id}`} className={styles.NavItem + (selected?' ' + styles.Selected:'')}>{calendar.name}</Link>
 }

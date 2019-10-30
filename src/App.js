@@ -31,7 +31,7 @@ const App = ()=>{
     <BrowserRouter>
       {/* Redirect / to first calendar */}
       <Route exact path="/">
-        <Redirect to={`/calendar/${calendars[0] ? calendars[0].group_calendar_id : ''}`}/>
+        <Redirect to={`/calendar/${calendars[0] ? calendars[0].id : ''}`}/>
       </Route>
 
       {/* General application structure */}
@@ -56,14 +56,14 @@ const App = ()=>{
             <Route path="/">
               <div className={styles.Sidebar}>
                 <h2 className={styles.CalendarMenuHeader}>Calendars</h2>
-                {calendars.map(calendar=><CalendarNavItem key={calendar.group_calendar_id} calendar={calendar} />)}
+                {calendars.map(calendar=><CalendarNavItem key={calendar.id} calendar={calendar} />)}
               </div>
               <div className={styles.ContentArea}>
                 <Route path="/calendar/:calendar_id">
                   {({match})=>(
                     <>
                       {match && match.params && match.params.calendar_id &&
-                        <CalendarView calendar={calendars.filter(c=>c.group_calendar_id === match.params.calendar_id)[0]}/>
+                        <CalendarView calendar={calendars.filter(c=>c.id === match.params.calendar_id)[0]}/>
                       }
                     </>
                   )}

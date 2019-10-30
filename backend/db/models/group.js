@@ -1,4 +1,5 @@
 const pg = require('../pg')
+const joinjs = require('join-js').default
 const schemas = require('../schemas')
 const debug = require('debug')('cal:db:group')
 
@@ -84,7 +85,12 @@ group.getGroupCalendars = async (userID) => {
 
     const query1 = {
         // Modified by Cole to return all group calendars so he could test the frontend
-        text: 'select distinct * from group_calendar gc left join calendar_membership cm on cm.calendar_membership_group_calendar_id = gc.group_calendar_id where cm.calendar_membership_user_id = $1',
+        text: `
+            select * from group_calendar
+                left join calendar_membership on calendar_membership_group_calendar_id = group_calendar_id
+                left join "user" on calendar_membership_user_id = user_id
+                where user_id = $1;
+        `,
         values: [
             userID
         ]
@@ -93,8 +99,7 @@ group.getGroupCalendars = async (userID) => {
     debug(query1)
 
     const result = await pg.query(query1)
-
-    return result.rows;
+    return joinjs.map(result.rows, schemas, 'calendarMap', 'group_calendar_')
 }
 
 group.editName = async (groupID, NewGroupName) => {

@@ -8,5 +8,6 @@
  */
 
 module.exports = [
-  ...require('./user-session')
+  ...require('./user-session'),
+  ...require('./calendar-members')
 ]

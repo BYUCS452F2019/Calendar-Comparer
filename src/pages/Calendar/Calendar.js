@@ -15,22 +15,22 @@ export default function CalendarView({calendar}){
 
 	useEffect(()=>{
 		console.log('effect')
-		const id = calendar.group_calendar_id
+		const id = calendar.id
 		const start = moment('2019-10-23').startOf('week').format('YYYY/MM/D')
 		const end = moment('2019-10-23').endOf('week').add('days', 1).format('YYYY/MM/D')
 		axios.get(`/api/getGroupAvailabilityCalendar?groupID=${id}&startDate=${start}&endDate=${end}`).then(({data})=>{
 			setSchedule(convertToSaneDataFormat(data))
 			setLoading(false)
 		})
-	}, [calendar.group_calendar_id])
+	}, [calendar.id])
 
 	return (
 		<>
 			<Route path="/calendar/:calendar_id/settings"><CalendarSettings calendar={calendar} /></Route>
 			<div className={styles.CalendarPage}>
 				<h2 className={styles.CalendarName}>
-					{calendar.group_calendar_name}
-					<Link className={styles.CalendarSettingsLink} to={`/calendar/${calendar.group_calendar_id}/settings`}>
+					{calendar.name}
+					<Link className={styles.CalendarSettingsLink} to={`/calendar/${calendar.id}/settings`}>
 						<Icon icon="settings"/>
 					</Link>
 				</h2>
