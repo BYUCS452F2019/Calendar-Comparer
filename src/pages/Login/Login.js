@@ -1,15 +1,15 @@
 import React, {useState, useRef} from 'react';
 import {useHistory} from 'react-router-dom'
 import styles from './Login.module.css';
-
+import axios from 'axios'
 import TextInput from '../../components/TextInput/TextInput'
 import Button from '../../components/Button/Button'
 
 // Helper function
 const makeAPICall = async (username, password)=>{
-	// Replace with api call
-	console.log(username, password)
-	await new Promise(res=>setTimeout(res, 1000))
+	axios.post('/api/login', {
+		userEmail: username,
+	}).then(res=>console.log(res.data))
 
 	return null
 }
