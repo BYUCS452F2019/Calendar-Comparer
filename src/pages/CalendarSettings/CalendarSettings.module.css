@@ -1,0 +1,45 @@
+.SettingsContainer {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.SettingsScrim {
+    background: rgba(0,0,0,.6);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.ModalContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.SettingsModal {
+    max-width: 600px;
+    margin: 200px auto;
+    padding: 24px;
+    background: white;
+    pointer-events: all;
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+}
+
+.SettingsHeader {
+    font-family: 'Montserrat' sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: black;
+    margin: 0;
+  }
