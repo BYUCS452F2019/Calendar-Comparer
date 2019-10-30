@@ -5,21 +5,21 @@ const updateCalendarEvents = require('../google-calendar-integration/update-cale
 
 module.exports = async function(req, res) {
     // get user id
-    userId = req.body.userId
+    userEmail = req.body.userEmail
 
     // get user google info from db
-    userGoogleInfo = await user.get(userId)
+    userGoogleInfo = await user.get(userEmail)
 
     // call google calendar api to populate the personal calendar and event tables
     updateGoogleCalendars(userGoogleInfo)
 
     // get user calendars from db
-    userCalendars = await calendar.get(userId)
+    userCalendars = await calendar.get(userGoogleInfo.userId)
 
     // update events for each calendar
     userCalendars.forEach(userCalendar => {
         updateCalendarEvents(userCalendar)
     })
 
-    res.send({loggedIn: true})
+    res.send({userId: userGoogleInfo.userId})
 }

@@ -4,11 +4,11 @@ const debug = require('debug')('cal:db:user')
 
 const user = {}
 
-user.get = async (userId) => {
+user.get = async (userEmail) => {
     const query = {
-        text: 'select user_google_refresh_token, user_google_access_token, user_google_token_expiry_date from "user" where user_id=$1',
+        text: 'select user_id, user_google_refresh_token, user_google_access_token, user_google_token_expiry_date from "user" where user_email=$1',
         values: [
-            userId
+            userEmail
         ]
     }
 
@@ -16,7 +16,7 @@ user.get = async (userId) => {
 
     const result = await pg.query(query)
     return {
-        userId,
+        userId: result.rows[0].user_id,
         refreshToken: result.rows[0].user_google_refresh_token,
         accessToken: result.rows[0].user_google_access_token,
         tokenExpiryDate: result.rows[0].user_google_token_expiry_date
