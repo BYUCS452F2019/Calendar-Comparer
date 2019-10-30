@@ -93,7 +93,7 @@ group.getGroupCalendars = async (userID) => {
     debug(query1)
 
     const result = await pg.query(query1)
- 
+
     return result.rows;
 }
 
@@ -128,10 +128,10 @@ group.getAvailabilityCalendars = async (groupID, startDate, endDate) => {
     let start;
     let end;
     if (startDate != null) {
-        start = new Date(startDate);      
+        start = new Date(startDate);
     }
     else {
-        start = new Date();    
+        start = new Date();
     }
     if (endDate != null) {
         end = new Date(endDate)
@@ -140,7 +140,7 @@ group.getAvailabilityCalendars = async (groupID, startDate, endDate) => {
         end = start.addDays(7);
     }
 
-    
+
 
     let eventList = await group.getGroupEventsOrderByUserID(groupID, start, end, minuteInterval = 30);
 
@@ -171,12 +171,12 @@ group.getAvailabilityCalendars = async (groupID, startDate, endDate) => {
             eventMarker = eventMarker.addMinutes(minuteInterval);
             console.log("added minutes: " + minuteInterval)
             console.log(eventMarker.getMinutes())
-        }  
+        }
     }
     console.log("filled availbeCalendar with userMarks")
     for (let i = 0; i < avaibleCalendar.length; i++) {
         for (let k = 0; k < avaibleCalendar[i].length; k++) {
-            avaibleCalendar[i][k] /= userAmount; 
+            avaibleCalendar[i][k] = 1 - avaibleCalendar[i][k] / userAmount;
         }
     }
     console.log("calculated percentages for availbe Calendar")
@@ -203,7 +203,7 @@ group.avaibleCalendarInit = function (dayAmount, minuteInterval) {
 
 group.getGroupEventsOrderByUserID = async function (groupID, startDate, endDate) {
 
-    
+
 
     const query1 = {
         text: `select owner_id, event_start, event_end
@@ -211,13 +211,13 @@ group.getGroupEventsOrderByUserID = async function (groupID, startDate, endDate)
     join personal_calendar pc on pc.personal_calendar_id = e.event_personal_calendar_id
     join group_connection gcon on gcon.personal_calendar_id = pc.personal_calendar_id
     where group_calendar_id = $1
-    and event_start > $2 
+    and event_start > $2
     and event_end < $3
     order by owner_id`,
         values: [
             groupID,
-            startDate.toLocaleDateString(),
-            endDate.toLocaleDateString()
+            startDate,
+            endDate
         ]
     }
 
@@ -250,8 +250,8 @@ function getEndOfWeek() {
 
 group.getUserAmount = async function (groupID) {
     const query1 = {
-        text: `select distinct count(calendar_membership_user_id) 
-            from calendar_membership 
+        text: `select distinct count(calendar_membership_user_id)
+            from calendar_membership
             where calendar_membership_group_calendar_id = $1`,
         values: [
             groupID
@@ -273,7 +273,7 @@ group.getTestAvailabilityCalendar = async function () {
     for (let i = 0; i < 7; i++) {
         let day = new Array();
         for (let k = 0; k < 48; k++) {
-            
+
             let percent = ((i + k) / total).toFixed(2);
             day[k] = percent;
         }
@@ -287,10 +287,10 @@ group.insertGroupConnection = async (groupID, userEmail) => {
     const query = {
         text: `insert into group_connection (personal_calendar_id, group_calendar_id)
         select personal_calendar_id, $1 as group_calendar_id
-        from personal_calendar 
+        from personal_calendar
         where owner_id = (select user_id from "user" where user_email = $2)`,
         values: [
-            groupID, 
+            groupID,
             userEmail
         ]
     }

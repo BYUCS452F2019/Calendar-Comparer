@@ -1,0 +1,29 @@
+.CalendarPage {
+  padding: 0;
+}
+
+.CalendarName {
+  font-family: 'Montserrat' sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: black;
+  margin: 24px;
+  margin-bottom: 0;
+}
+
+.CalendarContainer {
+  overflow: auto;
+  position: absolute; /* Positioning parent: App -> .ContentArea */
+  top: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.Calendar {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}

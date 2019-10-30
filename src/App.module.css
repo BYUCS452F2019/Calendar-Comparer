@@ -15,6 +15,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .Appbar h1 {
@@ -56,6 +57,7 @@
 .ContentArea {
   flex: 1;
   overflow-y: auto;
+  position: relative;
 }
 
 .CalendarMenuHeader {
