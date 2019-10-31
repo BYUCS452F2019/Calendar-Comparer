@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Link, Route} from 'react-router-dom'
 import axios from 'axios'
 import moment from 'moment'
@@ -9,24 +9,31 @@ import CalendarColumn from '../../components/CalendarColumn/CalendarColumn'
 import '@rmwc/icon/icon.css'
 import styles from './Calendar.module.css'
 
-export default function CalendarView({calendar}){
+export default function CalendarView({calendar, onUpdate}){
 	const [loading, setLoading] = useState(true)
 	const [schedule, setSchedule] = useState(null)
 
-	useEffect(()=>{
-		console.log('effect')
+	const loadCalendar = useCallback(()=>{
 		const id = calendar.id
 		const start = moment('2019-10-23').startOf('week').format('YYYY/MM/D')
-		const end = moment('2019-10-23').endOf('week').add('days', 1).format('YYYY/MM/D')
+		const end = moment('2019-10-23').endOf('week').add(1, 'days').format('YYYY/MM/D')
+
+		if(onUpdate && typeof onUpdate === 'function')
+			onUpdate()
+
 		axios.get(`/api/getGroupAvailabilityCalendar?groupID=${id}&startDate=${start}&endDate=${end}`).then(({data})=>{
 			setSchedule(convertToSaneDataFormat(data))
 			setLoading(false)
 		})
-	}, [calendar.id])
+	}, [calendar.id, onUpdate])
+
+	useEffect(loadCalendar, [calendar.id])
 
 	return (
 		<>
-			<Route path="/calendar/:calendar_id/settings"><CalendarSettings calendar={calendar} /></Route>
+			<Route path="/calendar/:calendar_id/settings">
+				<CalendarSettings calendar={calendar} onUpdate={loadCalendar}/>
+			</Route>
 			<div className={styles.CalendarPage}>
 				<h2 className={styles.CalendarName}>
 					{calendar.name}

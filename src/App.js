@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import axios from 'axios'
 import styles from './App.module.css';
 import Login from './pages/Login/Login.js';
@@ -15,11 +15,15 @@ import {
 const App = ()=>{
   const [calendars, setCalendars] = useState(null)
 
+  const loadCalendars = useCallback(()=>{
+    axios.get('/api/getGroupCalendars?userID=f7f6cea9-85f3-4e2e-bc40-0e9617ca2b42').then(res=>setCalendars(res.data))
+  }, [])
+
   // Attempt to load group calendars if we don't already have them
   useEffect(()=>{
     if(!calendars)
-        axios.get('/api/getGroupCalendars?userID=f7f6cea9-85f3-4e2e-bc40-0e9617ca2b42').then(res=>setCalendars(res.data))
-  }, [calendars])
+      loadCalendars()
+  }, [calendars, loadCalendars])
 
   // If we haven't loaded the list of calendars, then don't display the app yet
   if(!calendars)
@@ -63,7 +67,7 @@ const App = ()=>{
                   {({match})=>(
                     <>
                       {match && match.params && match.params.calendar_id &&
-                        <CalendarView calendar={calendars.filter(c=>c.id === match.params.calendar_id)[0]}/>
+                        <CalendarView calendar={calendars.filter(c=>c.id === match.params.calendar_id)[0]} onUpdate={loadCalendars}/>
                       }
                     </>
                   )}

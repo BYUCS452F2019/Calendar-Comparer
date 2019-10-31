@@ -1,5 +1,12 @@
 import React from 'react'
 
-export default function CalendarMember({member, calendar_id}){
-    return <div>{member.email}</div>
+import styles from './CalendarMember.module.css'
+
+export default function CalendarMember({member, pending, remove}){
+    return (
+        <div className={styles.CalendarMember}>
+            {pending && <span className={styles.spinner}>...</span>}
+            <span className={styles.email}>{member.email}</span>
+        </div>
+    )
 }
