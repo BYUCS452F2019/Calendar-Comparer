@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
+import CalendarMember from '../../components/CalendarMember/CalendarMember'
 import styles from './CalendarSettings.module.css'
 
 export default function CalendarSettings({calendar}){
@@ -11,9 +12,9 @@ export default function CalendarSettings({calendar}){
                 <div className={styles.SettingsModal}>
                     <h2 className={styles.SettingsHeader}>Editing {calendar.name}</h2>
                     <h3>Members:</h3>
-                    <pre>
-                        {JSON.stringify(calendar, null, 2)}
-                    </pre>
+                    {calendar.users.map(user=>(
+                        <CalendarMember member={user}/>
+                    ))}
                 </div>
             </div>
         </div>
