@@ -298,4 +298,18 @@ group.insertGroupConnection = async (groupID, userEmail) => {
     await pg.query(query)
 }
 
+group.deleteGroupConnection = async (groupID, userID) => {
+    const query = {
+        text: `delete from group_connection 
+        where group_calendar_id = $1
+        and personal_calendar_id in (select personal_calendar_id from personal_calendar where owner_id = $2)`,
+        values: [
+            groupID,
+            userID
+        ]
+    }
+
+    await pg.query(query)
+}
+
 module.exports = group;

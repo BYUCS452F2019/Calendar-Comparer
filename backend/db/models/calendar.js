@@ -59,4 +59,16 @@ calendar.insertCalendarMembership = async (groupID, userEmail) => {
     await pg.query(query)
 }
 
+calendar.deleteCalendarMembership = async (groupID, userID) => {
+    const query = {
+        text: `delete from calendar_membership where calendar_membership_user_id = $1 and calendar_membership_group_calendar_id = $2`,
+        values: [
+            userID,
+            groupID
+        ]
+    }
+
+    await pg.query(query)
+}
+
 module.exports = calendar;
