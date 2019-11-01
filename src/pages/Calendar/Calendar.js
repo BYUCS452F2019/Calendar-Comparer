@@ -14,6 +14,7 @@ export default function CalendarView({calendar, onUpdate}){
 	const [schedule, setSchedule] = useState(null)
 
 	const loadCalendar = useCallback(()=>{
+		setLoading(true)
 		const id = calendar.id
 		const start = moment('2019-10-23').startOf('week').format('YYYY/MM/D')
 		const end = moment('2019-10-23').endOf('week').add(1, 'days').format('YYYY/MM/D')

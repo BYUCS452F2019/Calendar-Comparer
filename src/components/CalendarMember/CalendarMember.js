@@ -3,7 +3,7 @@ import {Icon} from '@rmwc/icon'
 
 import styles from './CalendarMember.module.css'
 
-const mockCurrentUser = 'f7f6cea9-85f3-4e2e-bc40-0e9617ca2b42'
+const mockCurrentUser = 'f7f6cea9-85f3-4e2e-bc40-0e9617ca2b43'
 
 export default function CalendarMember({member, pending, remove}){
     const isMe = (mockCurrentUser === member.id)
