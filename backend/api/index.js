@@ -1,6 +1,7 @@
 const router = require('express-promise-router')();
 const debug = require('debug')('cal:api:index');
 const services = require('./services')
+const pg = require('../db/pg')
 
 router.get('/', async (req, res, next)=>{
   res.json({api: true})
@@ -46,6 +47,12 @@ router.post('/add-group-member', async (req, res, next) => {
 // Switching to POST because DELETE can't carry a request body (~cole)
 router.post('/delete-group-member', async (req, res, next) => {
   await services.deleteGroupMember(req, res)
+})
+
+// For auto-suggest
+router.get('/users', async (req, res) => {
+  const {rows} = await pg.query(`select user_email from "user"`)
+  res.json(rows.map(u=>u.user_email))
 })
 
 // API 404 handler

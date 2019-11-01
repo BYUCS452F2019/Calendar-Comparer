@@ -8,11 +8,17 @@ import CalendarMember from '../../components/CalendarMember/CalendarMember'
 import styles from './CalendarSettings.module.css'
 import axios from 'axios'
 
+import useUserList from '../../hooks/useUserList'
+import Dropdown from '../../components/Dropdown/Dropdown'
+
 export default function CalendarSettings({calendar, onUpdate}){
     const inputRef = useRef()
 
+    const allUsers = useUserList()
     const [pendingMembers, updatePendingMembers] = useState([])
     const [error, setError] = useState(null)
+    const [input, setInput] = useState('')
+    const [dropdown, setDropdown] = useState(false)
 
     const addMember = async function(){
         const email = inputRef.current.value
@@ -93,6 +99,16 @@ export default function CalendarSettings({calendar, onUpdate}){
             })
     }, [updatePendingMembers, dupes])
 
+    const availableUsers = (allUsers || []).filter(email=>{
+        if(pending.includes(email))
+            return false
+
+        if(members.map(m=>m.email).includes(email))
+            return false
+
+        return true
+    })
+
     return (
         <div className={styles.SettingsContainer}>
             <Link to={`/calendar/${calendar.id}`} className={styles.SettingsScrim}></Link>
@@ -109,7 +125,8 @@ export default function CalendarSettings({calendar, onUpdate}){
 
                     <h3>Add Member:</h3>
                     <form onSubmit={ev=>{ev.preventDefault(); addMember()}}>
-                        <TextInput inputRef={inputRef} label="Email"/>
+                        <TextInput inputRef={inputRef} label="Email" onFocus={()=>setDropdown(true)} onBlur={()=>setTimeout(()=>setDropdown(false),80)} onChange={ev=>setInput(ev.target.value)}/>
+                        <Dropdown options={availableUsers.filter(u=>u.includes(input))} onSelected={email=>{inputRef.current.value=email; addMember()}} visible={dropdown}/>
                         <Button type="submit">Add</Button>
                     </form>
                     {error && (
