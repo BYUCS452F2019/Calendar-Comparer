@@ -15,6 +15,10 @@ user.get = async (userEmail) => {
     // debug(query)
 
     const result = await pg.query(query)
+
+    if(!result.rows[0])
+        return null
+
     return {
         userId: result.rows[0].user_id,
         refreshToken: result.rows[0].user_google_refresh_token,

@@ -86,10 +86,12 @@ group.getGroupCalendars = async (userID) => {
     const query1 = {
         // Modified by Cole to return all group calendars so he could test the frontend
         text: `
-            select * from group_calendar
-                left join calendar_membership on calendar_membership_group_calendar_id = group_calendar_id
-                left join "user" on calendar_membership_user_id = user_id
-                where user_id = $1;
+            select "user".*, group_calendar.* from "user" as source_user
+                left join calendar_membership as source_membership on source_user.user_id = source_membership.calendar_membership_user_id
+                left join group_calendar on source_membership.calendar_membership_group_calendar_id = group_calendar.group_calendar_id
+                left join calendar_membership as dest_membership on group_calendar.group_calendar_id = dest_membership.calendar_membership_group_calendar_id
+                left join "user" on dest_membership.calendar_membership_user_id = "user".user_id
+                where source_user.user_id = $1;
         `,
         values: [
             userID
@@ -305,7 +307,7 @@ group.insertGroupConnection = async (groupID, userEmail) => {
 
 group.deleteGroupConnection = async (groupID, userID) => {
     const query = {
-        text: `delete from group_connection 
+        text: `delete from group_connection
         where group_calendar_id = $1
         and personal_calendar_id in (select personal_calendar_id from personal_calendar where owner_id = $2)`,
         values: [

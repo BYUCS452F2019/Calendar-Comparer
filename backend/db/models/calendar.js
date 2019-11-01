@@ -1,5 +1,7 @@
 const pg = require('../pg')
 
+const userModel = require('./user')
+
 const calendar = {}
 
 calendar.get = async (ownerId) => {
@@ -43,15 +45,19 @@ calendar.insert_calendars = async (calendarIds, userId) => {
         if (!selectResult.rows.length) {
             await pg.query(insertQueries[i])
         }
-    }  
+    }
 }
 
 calendar.insertCalendarMembership = async (groupID, userEmail) => {
+    const user = await userModel.get(userEmail)
+    if(!user)
+        throw new Error('No such user: ' + userEmail)
+
     const query = {
         text: `insert into calendar_membership (calendar_membership_group_calendar_id, calendar_membership_user_id)
         values ($1, (select user_id from "user" where user_email = $2))`,
         values: [
-            groupID, 
+            groupID,
             userEmail
         ]
     }

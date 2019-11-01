@@ -40,7 +40,7 @@ router.post('/editGroupName', async (req, res, next) => {
 })
 
 router.post('/add-group-member', async (req, res, next) => {
-  services.addGroupMember(req, res)
+  await services.addGroupMember(req, res)
 })
 
 router.delete('/group-member', async (req, res, next) => {
