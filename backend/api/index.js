@@ -43,8 +43,9 @@ router.post('/add-group-member', async (req, res, next) => {
   await services.addGroupMember(req, res)
 })
 
-router.delete('/group-member', async (req, res, next) => {
-  services.deleteGroupMember(req, res)
+// Switching to POST because DELETE can't carry a request body (~cole)
+router.post('/delete-group-member', async (req, res, next) => {
+  await services.deleteGroupMember(req, res)
 })
 
 // API 404 handler

@@ -47,7 +47,7 @@ const App = ()=>{
                       <span id="AGB100">100%</span><span>90%</span><span>80%</span><span>70%</span><span>60%</span><span>50%</span><span>40%</span><span>30%</span><span>20%</span><span>10%</span><span id="AGB0">0%</span>
             </div>                    */}
           <nav>
-            <Link to="/login">Login</Link>
+            {/* <Link to="/login">Login</Link> */}
             {/* <Link to="/calendar">Calendar</Link> */}
           </nav>
         </div>

@@ -7,13 +7,42 @@
 
 .email {
   flex: 1;
+  margin-left: 8px;
 }
 
 .spinner + .email, .remove {
   margin-left: 8px;
 }
 
+.remove {
+  pointer-events: none;
+  opacity: 0;
+  color: rgba(0,0,0,.4);
+  margin-right: 4px;
+}
+
+.current {
+  font-size: 12px;
+  text-transform: lowercase;
+  background: rgb(197, 247, 194);
+  margin-right: 16px;
+  padding: 2px 6px;
+  padding-bottom: 3px;
+  border-radius: 16px;
+}
+
+.CalendarMember:not(.pending):hover {
+  background: rgba(0,0,0,.1);
+}
+
+.CalendarMember:not(.pending):hover .remove {
+  pointer-events: all;
+  opacity: 1;
+  cursor: pointer;
+}
+
 .spinner {
+  margin-left: 8px;
   font-size: 1.2px;
   text-indent: -9999em;
   width: 11em;

@@ -210,17 +210,16 @@ group.avaibleCalendarInit = function (dayAmount, minuteInterval) {
 
 group.getGroupEventsOrderByUserID = async function (groupID, startDate, endDate) {
 
-
-
     const query1 = {
-        text: `select owner_id, event_start, event_end
-     from Event e
-    join personal_calendar pc on pc.personal_calendar_id = e.event_personal_calendar_id
-    join group_connection gcon on gcon.personal_calendar_id = pc.personal_calendar_id
-    where group_calendar_id = $1
-    and event_start > $2
-    and event_end < $3
-    order by owner_id`,
+        text: `
+            select event_id, event_name, event_start, event_end from group_calendar
+                left join calendar_membership on group_calendar_id = calendar_membership_group_calendar_id
+                left join personal_calendar on personal_calendar.owner_id = calendar_membership_user_id
+                left join event on event_personal_calendar_id = personal_calendar_id
+                where group_calendar_id = $1
+                and event_start > $2
+                and event_end < $3;
+        `,
         values: [
             groupID,
             startDate,
