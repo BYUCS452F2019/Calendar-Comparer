@@ -4,6 +4,7 @@ import moment from 'moment'
 
 import CalendarColumn from '../../components/CalendarColumn/CalendarColumn'
 import styles from './Calendar.module.css'
+import { CalendarTypeMenu } from '../../components/CalendarTypeMenu/CalendarTypeMenu'
 
 export default function CalendarView({calendar}){
 	const [loading, setLoading] = useState(true)
@@ -22,9 +23,10 @@ export default function CalendarView({calendar}){
 
 	return (
 	  <div className={styles.CalendarPage}>
-			<h2 className={styles.CalendarName}>{calendar.group_calendar_name}</h2>
-
-			<div className={styles.CalendarContainer}>
+            <h2 className={styles.CalendarName}>{calendar.group_calendar_name}</h2>
+            
+            <div className={styles.CalendarContainer}>
+                <CalendarTypeMenu />
 				{
 					loading
 						?<p style={{textAlign: 'center', marginTop: '20vh'}}>Loading calendar . . .</p>

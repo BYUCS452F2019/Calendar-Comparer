@@ -1,0 +1,27 @@
+.typeMenu {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0px 12px;
+    font-family: Montserrat,sans-serif;
+}
+
+.typeMenuHeader {
+    text-decoration: underline;
+}
+
+.ItemSelected{
+    color:white;
+    background-color:grey;
+}
+
+.Item {
+    cursor: pointer;
+    padding: 4px 2px;
+    font-size: 16px;
+    border-radius: 7px;
+}
+
+    .Item:hover {
+        color: white;
+        background-color: lightgrey;
+    }

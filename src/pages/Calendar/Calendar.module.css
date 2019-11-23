@@ -3,12 +3,13 @@
 }
 
 .CalendarName {
-  font-family: 'Montserrat' sans-serif;
-  font-size: 32px;
-  font-weight: 500;
-  color: black;
-  margin: 24px;
-  margin-bottom: 0;
+    font-family: 'Montserrat' sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: black;
+    margin: 24px;
+    margin-bottom: 0;
+    display: inline-block;
 }
 
 .CalendarContainer {
@@ -21,9 +22,5 @@
 }
 
 .Calendar {
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
+  display:inline-block
 }
