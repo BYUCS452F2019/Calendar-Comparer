@@ -24,3 +24,22 @@
 .Calendar {
   display:inline-block
 }
+
+.Thermometer {
+    background-image: linear-gradient(hsla(116, 59%, 74%, 1), hsla(66, 59%, 74%, 1), hsla(16, 59%, 74%, 1));
+    display: inline-block;
+    vertical-align: top;
+    height: 300px;
+    margin-left: 29px;
+    padding: 5px;
+    border-radius: 22px;
+    margin-top: 35px;
+    border: solid grey 2px;
+    position: relative;
+}
+
+.ThBottom {
+    vertical-align: bottom;
+    position: absolute;
+    bottom: 0px;
+}

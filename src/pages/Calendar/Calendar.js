@@ -5,13 +5,24 @@ import moment from 'moment'
 import { CalendarColumn } from '../../components/CalendarColumn/CalendarColumn'
 import styles from './Calendar.module.css'
 import { CalendarTypeMenu } from '../../components/CalendarTypeMenu/CalendarTypeMenu'
+import { func } from 'prop-types';
 
 export default function CalendarView({ calendar }) {
     const [loading, setLoading] = useState(true)
     const [schedule, setSchedule] = useState(null)
+    const [ShowThermometer, setShowThermometer] = useState("none")
 
-    const [calendarType, setCalendarType] = useState("hm"); 
+    const [calendarType, setCalendarType] = useState("wig"); 
 
+    function HandleCalendarChange(Type) {
+        setCalendarType(Type);
+        if (Type == 'hm') {
+            setShowThermometer("inline-block")
+        }
+        else {
+            setShowThermometer("none")
+        }
+    }
 
 	useEffect(()=>{
 		console.log('effect')
@@ -29,7 +40,7 @@ export default function CalendarView({ calendar }) {
             <h2 className={styles.CalendarName}>{calendar.group_calendar_name}</h2>
             
             <div className={styles.CalendarContainer}>
-                <CalendarTypeMenu />
+                <CalendarTypeMenu onClick={HandleCalendarChange} />
 				{
 					loading
 						?<p style={{textAlign: 'center', marginTop: '20vh'}}>Loading calendar . . .</p>
@@ -42,7 +53,11 @@ export default function CalendarView({ calendar }) {
                             <CalendarColumn schedule={schedule} day="friday" calendarType={calendarType}  />
                             <CalendarColumn schedule={schedule} day="saturday" calendarType={calendarType}  />
 						</div>
-				}
+                }
+                <span style={{ display: ShowThermometer }} className={styles.Thermometer}>
+                    <div>100%</div>
+                    <div className={styles.ThBottom}>0%</div>
+                </span>
 			</div>
 			{/* <WeekCalendar/> */}
 	  </div>

@@ -12,18 +12,19 @@ export class CalendarColumn extends Component {
 
         let calendarType = this.props.calendarType;
         let schedule = this.state.schedule[this.state.day]
-
+        console.log("ScheduleItem: " + calendarType)
         if (calendarType == "hm") //hm = heat map
         {
             //hsla(0-100, 82%, 49%, 1)
-            let available = schedule[time] * 100
+            let available = schedule[time] * 100 + 16
+            
             const displayTime = time.match(/[0-9]+:[0-9][0-9]/)
 
             let ItemStyles = {
-                backgroundColor: 'hsla(' + available + ', 59%, 74%, 1)'
+                backgroundColor: 'hsla(' + available + ', 60%, 74%, 1)'
             };
 
-            return <div style={ItemStyles}>{displayTime}</div>
+            return <div style={ItemStyles} className={styles.ScheduleItem}>{displayTime}</div>
         }
         else if (calendarType == "mvp") {
 
