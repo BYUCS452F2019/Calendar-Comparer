@@ -2,6 +2,8 @@ const pg = require('../pg')
 const schemas = require('../schemas')
 const debug = require('debug')('cal:db:group')
 
+const yieldAsync = ()=>new Promise(res=>setImmediate(res))
+
 const group = {}
 
 Date.prototype.addDays = function (days) {
@@ -115,7 +117,18 @@ group.editName = async (groupID, NewGroupName) => {
     return result;
 }
 
-group.getAvailabilityCalendars = async (groupID, startDate, endDate) => {
+// This function has a caching version in the /cache/ folder - please
+// be sure to use that instead of calling this directly (although don't remove
+// this either: the caching version calls this one)
+
+// Note: This function has also been modified to yield control every once in
+// a while to prevent server blocking.  This makes it take _slightly_ longer to
+// finish, but means shorter requests can be handled without delay while it works.
+group.getAvailabilityCalendars = async (groupID) => {
+    // Hard coded for demonstration
+    const startDate = moment('2019-10-23').startOf('week').format('YYYY/MM/D')
+    const endDate = moment('2019-10-23').endOf('week').add('days', 1).format('YYYY/MM/D')
+
     console.log("getting Availability Calender for group: " + groupID);
     if (groupID == "test") {
         console.log("getting test Availability Calendar")
@@ -171,6 +184,8 @@ group.getAvailabilityCalendars = async (groupID, startDate, endDate) => {
             eventMarker = eventMarker.addMinutes(minuteInterval);
             console.log("added minutes: " + minuteInterval)
             console.log(eventMarker.getMinutes())
+
+            await yieldAsync()
         }
     }
     console.log("filled availbeCalendar with userMarks")

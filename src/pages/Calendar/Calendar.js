@@ -13,9 +13,7 @@ export default function CalendarView({calendar}){
 	useEffect(()=>{
 		console.log('effect')
 		const id = calendar.group_calendar_id
-		const start = moment('2019-10-23').startOf('week').format('YYYY/MM/D')
-		const end = moment('2019-10-23').endOf('week').add('days', 1).format('YYYY/MM/D')
-		axios.get(`/api/getGroupAvailabilityCalendar?groupID=${id}&startDate=${start}&endDate=${end}`).then(({data})=>{
+		axios.get(`/api/getGroupAvailabilityCalendar?groupID=${id}`).then(({data})=>{
 			setSchedule(convertToSaneDataFormat(data))
 			setLoading(false)
 		})
