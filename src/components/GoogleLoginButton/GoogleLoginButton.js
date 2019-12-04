@@ -7,8 +7,8 @@ import styles from './GoogleLoginButton.module.css'
 
 // Helper function
 const makeAPICall = async (googleResponse) => {
-	axios.post('/api/login', {
-		authorization: googleResponse.tokenId,
+	axios.post('/api/login', {}, {
+		headers: { Authorization: googleResponse.tokenId },
 	}).then(res=>console.log(res.data))
 
 	return null

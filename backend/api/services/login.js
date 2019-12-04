@@ -6,7 +6,7 @@ const updateCalendarEvents = require('../google-calendar-integration/update-cale
 
 module.exports = async function(req, res) {
     // get google token
-    const token = req.body.authorization
+    const token = req.headers.authorization
     if(!token) {
         res.status(401).json({error: 'Missing Credentials'})
         return
