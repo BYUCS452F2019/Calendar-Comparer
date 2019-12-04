@@ -1,38 +1,39 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
 import styles from './Login.module.css';
 import axios from 'axios'
-import TextInput from '../../components/TextInput/TextInput'
-import Button from '../../components/Button/Button'
+import GoogleLogin from 'react-google-login';
 
 // Helper function
-const makeAPICall = async (username, password)=>{
+const makeAPICall = async (googleResponse) => {
 	axios.post('/api/login', {
-		userEmail: username,
+		authorization: googleResponse.tokenId,
 	}).then(res=>console.log(res.data))
 
 	return null
 }
 
+const responseGoogle = (response) => {
+	console.log(response);
+}
+
 const Login = ({setUser})=>{
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
-	const usernameRef = useRef()
-	const passwordRef = useRef()
 	const history = useHistory()
 
-	const login = async ()=>{
+	const login = async (googleResponse)=>{
 		// Clear any current error message
 		setError(null)
 
 		// Set loading
 		setLoading(true)
 
-		const username = usernameRef.current.value
-		const password = passwordRef.current.value
+		document.getElementById('googleButton')
 
 		try {
-			const user = await makeAPICall(username, password)
+			// const user = await makeAPICall(username, password)
+			const user = await makeAPICall(googleResponse)
 
 			// Notify parent of user
 			if(setUser && typeof setUser === 'function')
@@ -50,10 +51,14 @@ const Login = ({setUser})=>{
 
 	return (
 		<div className={styles.Login}>
-			<h2>Login:</h2>
-			<TextInput name="username" inputRef={usernameRef} />
-			<TextInput name="password" inputRef={passwordRef} type="password" />
-			<Button loading={loading} onClick={login}>Submit</Button>
+
+			<GoogleLogin
+				clientId="527738104479-b7jsh44hks41f8689otjraeinv7mj9im.apps.googleusercontent.com"
+				buttonText="Sign In"
+				onSuccess={login}
+				onFailure={responseGoogle}
+				cookiePolicy={'single_host_origin'}
+			/>,
 
 			{error && (
 				<div className={styles.Error}>
