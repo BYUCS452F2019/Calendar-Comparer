@@ -26,16 +26,16 @@ export default function CalendarView({ calendar }) {
 
 	useEffect(()=>{
 		console.log('effect')
-		const id = calendar.group_calendar_id
+		const id = calendar.id
 		axios.get(`/api/getGroupAvailabilityCalendar?groupID=${id}`).then(({data})=>{
 			setSchedule(data)
 			setLoading(false)
 		})
-	}, [calendar.group_calendar_id])
+	}, [calendar.id])
 
 	return (
 	  <div className={styles.CalendarPage}>
-            <h2 className={styles.CalendarName}>{calendar.group_calendar_name}</h2>
+            <h2 className={styles.CalendarName}>{calendar.name}</h2>
 
             <div className={styles.CalendarContainer}>
                 <CalendarTypeMenu onClick={HandleCalendarChange} />

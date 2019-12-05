@@ -3,6 +3,7 @@ const schemas = require('../schemas')
 const debug = require('debug')('cal:db:group')
 const moment = require('moment')
 const cache = require('../../cache')
+const joinjs = require('join-js').default
 
 const yieldAsync = ()=>new Promise(res=>setImmediate(res))
 
@@ -100,7 +101,7 @@ group.getGroupCalendars = async (userID) => {
 
     const result = await pg.query(query1)
 
-    return result.rows;
+    return joinjs.map(result.rows, schemas, 'calendarMap', 'group_calendar_')
 }
 
 group.editName = async (groupID, NewGroupName) => {
