@@ -16,8 +16,8 @@ create table "user" (
 
 create table calendar_membership (
   calendar_membership_id uuid primary key default uuid_generate_v4(),
-  calendar_membership_group_calendar_id uuid references group_calendar(group_calendar_id),
-  calendar_membership_user_id uuid references "user"(user_id)
+  calendar_membership_group_calendar_id uuid references group_calendar(group_calendar_id) not null,
+  calendar_membership_user_id uuid references "user"(user_id) not null
 );
 
 create table personal_calendar (

@@ -4,6 +4,7 @@ import styles from './App.module.css';
 import Login from './pages/Login/Login.js';
 import CalendarView from './pages/Calendar/Calendar.js';
 import CalendarNavItem from './components/CalendarNavItem/CalendarNavItem'
+import GoogleLoginButton from './components/GoogleLoginButton/GoogleLoginButton'
 
 import {
   BrowserRouter,
@@ -44,7 +45,7 @@ const App = ()=>{
                       <span id="AGB100">100%</span><span>90%</span><span>80%</span><span>70%</span><span>60%</span><span>50%</span><span>40%</span><span>30%</span><span>20%</span><span>10%</span><span id="AGB0">0%</span>
             </div>                    */}
           <nav>
-            <Link to="/login">Login</Link>
+            <GoogleLoginButton></GoogleLoginButton>
             {/* <Link to="/calendar">Calendar</Link> */}
           </nav>
         </div>

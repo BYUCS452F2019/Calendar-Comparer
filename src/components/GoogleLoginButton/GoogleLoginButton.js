@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import styles from './Login.module.css';
 import axios from 'axios'
 import GoogleLogin from 'react-google-login';
 
+import styles from './GoogleLoginButton.module.css'
+
 // Helper function
 const makeAPICall = async (googleResponse) => {
-	axios.post('/api/login', {
-		authorization: googleResponse.tokenId,
+	axios.post('/api/login', {}, {
+		headers: { Authorization: googleResponse.tokenId },
 	}).then(res=>console.log(res.data))
 
 	return null
@@ -17,7 +18,7 @@ const responseGoogle = (response) => {
 	console.log(response);
 }
 
-const Login = ({setUser})=>{
+const GoogleLoginButton = ({setUser})=>{
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
@@ -50,7 +51,7 @@ const Login = ({setUser})=>{
 	}
 
 	return (
-		<div className={styles.Login}>
+		<div>
 
 			<GoogleLogin
 				clientId="527738104479-b7jsh44hks41f8689otjraeinv7mj9im.apps.googleusercontent.com"
@@ -69,4 +70,4 @@ const Login = ({setUser})=>{
 	);
 }
 
-export default Login;
+export default GoogleLoginButton
