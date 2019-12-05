@@ -21,6 +21,7 @@ const responseGoogle = (response) => {
 const GoogleLoginButton = ({setUser})=>{
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
+	const [loggedIn, setLoggedIn] = useState(false)
 	const history = useHistory()
 
 	const login = async (googleResponse)=>{
@@ -29,6 +30,9 @@ const GoogleLoginButton = ({setUser})=>{
 
 		// Set loading
 		setLoading(true)
+
+		// Set loggedIn
+		setLoggedIn(true)
 
 		document.getElementById('googleButton')
 
@@ -50,24 +54,40 @@ const GoogleLoginButton = ({setUser})=>{
 		}
 	}
 
+	if (!loggedIn) {
+		return (
+			<div>
+				<GoogleLogin
+					clientId="527738104479-b7jsh44hks41f8689otjraeinv7mj9im.apps.googleusercontent.com"
+					buttonText="Sign In"
+					onSuccess={login}
+					onFailure={responseGoogle}
+					cookiePolicy={'single_host_origin'}
+				/>,
+	
+				{error && (
+					<div className={styles.Error}>
+						{error}
+					</div>
+				)}
+			</div>
+		);
+	}
 	return (
 		<div>
-
-			<GoogleLogin
-				clientId="527738104479-b7jsh44hks41f8689otjraeinv7mj9im.apps.googleusercontent.com"
-				buttonText="Sign In"
-				onSuccess={login}
-				onFailure={responseGoogle}
-				cookiePolicy={'single_host_origin'}
-			/>,
-
-			{error && (
-				<div className={styles.Error}>
-					{error}
-				</div>
-			)}
-		</div>
-	);
+				<GoogleLogin
+					clientId="527738104479-b7jsh44hks41f8689otjraeinv7mj9im.apps.googleusercontent.com"
+					buttonText="Sign Out"
+					cookiePolicy={'single_host_origin'}
+				/>,
+	
+				{error && (
+					<div className={styles.Error}>
+						{error}
+					</div>
+				)}
+			</div>
+	)
 }
 
 export default GoogleLoginButton
